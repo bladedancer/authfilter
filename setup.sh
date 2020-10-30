@@ -32,6 +32,9 @@ spec:
 EOF
 kubectl label namespace default istio-injection=enabled
 
+while [[ $(kubectl -n istio-system get pods -l app=istiod -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do echo "waiting for Istiod" && sleep 10; done
+
+
 echo =======================
 echo === Deploy BookInfo ===
 echo =======================
