@@ -1,0 +1,19 @@
+#!/bin/sh
+
+TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3NjE5OGUwZS1lNTczLTQ0MjAtYTUyNC1iZjRkMmRlNTcwNTEifQ.eyJqdGkiOiI0OTFkODgyNy05ZmZhLTQyN2ItOTliYi0xYzc1ZTJiMzc2NWEiLCJleHAiOjE2MDQwOTI5MDUsIm5iZiI6MCwiaWF0IjoxNjA0MDcxMzA1LCJpc3MiOiJodHRwczovL2xvZ2luLmF4d2F5LmNvbS9hdXRoL3JlYWxtcy9Ccm9rZXIiLCJhdWQiOiJodHRwczovL2xvZ2luLmF4d2F5LmNvbS9hdXRoL3JlYWxtcy9Ccm9rZXIiLCJzdWIiOiI3MzZkNTU0MS1kMjVkLTQ4ZjgtYjcwYi1kNjM5ZmM4YzlhZjIiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoiRE9TQV84YjE5MWVhODYwYjI0OGVmOGZjNTdhNGU4ZmJiMjJjYSIsImF1dGhfdGltZSI6MCwic2Vzc2lvbl9zdGF0ZSI6ImNlNTE2NTdmLTM0YjAtNGVjZS1iNDhiLWFkYmM5ZWVmMmZiNiIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIn0.faB4fIY_4HQh0OEra4VMNXlVpVF66ReNAJPeoagcU1c
+
+echo
+echo "NO TOKEN"
+echo
+kubectl exec -it testcurl -- curl -v http://reviews:9080/reviews/0
+echo
+echo
+echo "INVALID TOKEN"
+echo
+kubectl exec -it testcurl -- curl -v -H "Authorization: Bearer foo.bar.com" http://reviews:9080/reviews/0
+echo
+echo
+echo "VALID TOKEN"
+echo
+kubectl exec -it testcurl -- curl -v -H "Authorization: Bearer $TOKEN" http://reviews:9080/reviews/0
+echo
