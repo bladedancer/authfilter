@@ -1,7 +1,7 @@
-apiVersion: "security.istio.io/v1beta1"
-kind: "RequestAuthentication"
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
 metadata:
-  name: "jwt-reqauth"
+  name: jwt-reqauth
 spec:
   selector:
     matchLabels:
@@ -9,8 +9,6 @@ spec:
   jwtRules:
   - issuer: "https://sso-authentication-hub.apps.azuwepoc012l.6dba7406dcaf4075b252.westeurope.aksapp.io/auth/realms/poc"
     jwksUri: "https://sso-authentication-hub.apps.azuwepoc012l.6dba7406dcaf4075b252.westeurope.aksapp.io/auth/realms/poc/protocol/openid-connect/certs"
-    outputPayloadToHeader: authtok
-    forwardOriginalToken: true
 ---
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
