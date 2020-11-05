@@ -7,7 +7,7 @@ echo === Create Cluster ===
 echo ======================
 
 k3d cluster delete $CLUSTER_NAME
-k3d cluster create --no-lb --update-default-kubeconfig=false --agents 2 --wait $CLUSTER_NAME
+k3d cluster create --no-lb --update-default-kubeconfig=false --k3s-server-arg "--no-deploy=traefik" -p "18080:80@server[0]" --wait $CLUSTER_NAME
 export KUBECONFIG=$(k3d kubeconfig write $CLUSTER_NAME)
 kubectl cluster-info
 
@@ -62,6 +62,11 @@ echo =======================
 echo === Deploy BookInfo ===
 echo =======================
 kubectl apply -f istio-$ISTIO_VERSION/samples/bookinfo/platform/kube/bookinfo.yaml
+
+echo ===============================
+echo === Deploy Bookinfo Ingress ===
+echo ===============================
+kubectl apply -f bookinfo-ingress.yaml
 
 echo =======================
 echo === Deploy Curl     ===

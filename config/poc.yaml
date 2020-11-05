@@ -1,3 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: reviews
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - poc-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /reviews
+    route:
+    - destination:
+        host: reviews
+        port:
+          number: 9080
+---
 apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
